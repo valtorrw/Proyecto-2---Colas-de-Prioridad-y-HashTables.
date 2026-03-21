@@ -23,6 +23,8 @@ public class DocCola {
         this.indiceHeap = -1; 
     }
     
+    
+    //getters
     public void setIndiceHeap(int indice) { 
         this.indiceHeap = indice; 
     }
@@ -38,4 +40,17 @@ public class DocCola {
     public void setClavePrioridad(int clavePrioridad) {
         this.clavePrioridad = clavePrioridad; 
     }
+    
+    public String getNomDoc(){
+        return nomDoc;
+    }
+    
+    public String getNomUsuario(){
+        return nomUsuario;
+    }
+    
+    public int getSizeD(){
+        return sizeD;
+    }
+    
 }
