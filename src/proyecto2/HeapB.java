@@ -131,7 +131,7 @@ public class HeapB {
     
     public void mostrarSecuencia() {
         if (estaVacia()) {
-            System.out.println("Cola vacía");
+            System.out.println("Cola vacia");
             return;
         }
         System.out.println("=== COLA SECUENCIA (" + sizeH + " docs) ===");
@@ -145,26 +145,55 @@ public class HeapB {
 
     public void mostrarArbol() {
         if (estaVacia()) {
-            System.out.println("Heap vacío");
+            System.out.println("Heap vacio");
             return;
         }
-        System.out.println("RAÍZ: " + heap[0].getNomDoc() + " (P:" + heap[0].getClavePrioridad() + ")");
+        System.out.println("RAIZ: " + heap[0].getNomDoc() + " (P:" + heap[0].getClavePrioridad() + ")");
         mostrarNivel(0, 1);
+    }
+    
+    private void mostrarArbolRecursivo(int indice, int nivel) {
+        if (indice >= sizeH) return;
+        
+        // Espacios para indentación
+        for (int i = 0; i < nivel; i++) {
+            System.out.print("  ");
+        }
+        
+        // Mostrar nodo actual
+        System.out.print("--" + heap[indice] + "\n");
+        
+        // Hijos
+        int hijoIzq = 2 * indice + 1;
+        int hijoDer = 2 * indice + 2;
+        
+        mostrarArbolRecursivo(hijoIzq, nivel + 1);
+        mostrarArbolRecursivo(hijoDer, nivel + 1);
     }
 
     private void mostrarNivel(int pos, int nivel) {
         if (pos >= sizeH) return;
         
-        System.out.print("Nivel " + nivel + ": ");
-        for (int i = 0; i < sizeH; i++) {
-            if (esHijo(pos, i)) {
-                System.out.print(heap[i].getNomDoc() + "(" + heap[i].getClavePrioridad() + ") ");
-            }
+        for (int i = 0; i < nivel; i++) {
+            System.out.print("  ");
+        }
+        System.out.print("-- " + heap[pos].getNomDoc() + 
+                        "(" + heap[pos].getClavePrioridad() + ") ");
+        
+        int hermano = pos + 1;
+        while (hermano < sizeH && padreDe(hermano) == padreDe(pos)) {
+            System.out.print(heap[hermano].getNomDoc() + 
+                           "(" + heap[hermano].getClavePrioridad() + ") ");
+            hermano++;
         }
         System.out.println();
         
         mostrarNivel(2 * pos + 1, nivel + 1);
         mostrarNivel(2 * pos + 2, nivel + 1);
+    }
+    
+    private int padreDe(int hijo) {
+        return (hijo - 1) / 2;
     }
 
     private boolean esHijo(int padre, int hijo) {
