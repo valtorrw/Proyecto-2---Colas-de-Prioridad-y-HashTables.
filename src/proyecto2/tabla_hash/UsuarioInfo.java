@@ -10,10 +10,12 @@ package proyecto2.tabla_hash;
  */
 public class UsuarioInfo {
     public String nombre;
+    public int  prioridad;
     public ListaDocumentosEnCola docsEnCola;
     
-    public UsuarioInfo(String nombre) {
+    public UsuarioInfo(String nombre, int prioridad) {
         this.nombre = nombre;
+        this.prioridad = prioridad;
         this.docsEnCola = new ListaDocumentosEnCola();
     }
     

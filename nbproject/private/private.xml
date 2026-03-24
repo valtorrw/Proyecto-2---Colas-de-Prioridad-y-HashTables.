@@ -3,9 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/valer/OneDrive/Documents/NetBeansProjects/Proyecto2/src/proyecto2/Nodo.java</file>
             <file>file:/C:/Users/valer/OneDrive/Documents/NetBeansProjects/Proyecto2/src/proyecto2/HeapB.java</file>
+            <file>file:/C:/Users/valer/OneDrive/Documents/NetBeansProjects/Proyecto2/src/proyecto2/TestHeapB.java</file>
+            <file>file:/C:/Users/valer/OneDrive/Documents/NetBeansProjects/Proyecto2/src/proyecto2/tabla_hash/ListaDocumentosEnCola.java</file>
+            <file>file:/C:/Users/valer/OneDrive/Documents/NetBeansProjects/Proyecto2/src/proyecto2/tabla_hash/NodoDocEnCola.java</file>
+            <file>file:/C:/Users/valer/OneDrive/Documents/NetBeansProjects/Proyecto2/src/proyecto2/tabla_hash/NodoHash.java</file>
+            <file>file:/C:/Users/valer/OneDrive/Documents/NetBeansProjects/Proyecto2/src/proyecto2/CargarCVS.java</file>
+            <file>file:/C:/Users/valer/OneDrive/Documents/NetBeansProjects/Proyecto2/src/proyecto2/tabla_hash/UsuarioInfo.java</file>
             <file>file:/C:/Users/valer/OneDrive/Documents/NetBeansProjects/Proyecto2/src/proyecto2/DocCola.java</file>
+            <file>file:/C:/Users/valer/OneDrive/Documents/NetBeansProjects/Proyecto2/src/proyecto2/tabla_hash/TablaHash.java</file>
         </group>
     </open-files>
 </project-private>
