@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package proyecto2;
-
+import proyecto2.tabla_hash.UsuarioInfo;
 /**
  *
  * @author valer
@@ -74,6 +74,13 @@ public class HeapB {
             return -1;
         }
         
+         UsuarioInfo user = Tabla.buscarUsuario(doc.getNomUsuario()); //Hay que instanciar la tabla hash en el main y usar esa aqui
+        if (user != null) {
+            doc.calcularPrioridad(user);
+        } else {
+            System.out.println("Usuario no encontrado");
+        }
+        
         heap[sizeH] = doc;
         doc.setIndiceHeap(sizeH);
         int posicion = sizeH;
@@ -103,7 +110,10 @@ public class HeapB {
         if (indice < 0 || indice >= sizeH) {
             return;
         }
-        heap[indice].setClavePrioridad(nuevaPrioridad);
+       DocCola doc = heap[indice];
+        UsuarioInfo user = Tabla.buscarUsuario(doc.getNomUsuario());//aqui tambien hay que usar la tabla que se ponga en el main
+
+        doc.calcularPrioridad(user);
         heapifyUp(indice);   // Sube
         heapifyDown(indice); // Baja
         }

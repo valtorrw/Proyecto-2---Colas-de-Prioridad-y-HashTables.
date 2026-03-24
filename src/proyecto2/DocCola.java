@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package proyecto2;
+import proyecto2.tabla_hash.UsuarioInfo;
 
 /**
  *
@@ -12,17 +13,23 @@ public class DocCola {
      private String nomUsuario;
     private String nomDoc;
     private int sizeD;   
-    private int clavePrioridad; 
+    private int PrioridadDoc; 
+    private int PrioridadTotal;
     private int indiceHeap; 
     
-    public DocCola(String nomUsuario, String nomDoc, int sizeD, int clavePrioridad){
+    
+    public DocCola(String nomUsuario, String nomDoc, int sizeD, int PrioridadDoc, int PrioridadTotal){
         this.nomUsuario = nomUsuario;
         this.nomDoc = nomDoc;
         this.sizeD = sizeD;
-        this.clavePrioridad = clavePrioridad;
+        this.PrioridadDoc = PrioridadDoc;
+        this.PrioridadTotal = PrioridadTotal;
         this.indiceHeap = -1; 
     }
     
+    public void calcularPrioridad(UsuarioInfo usuario) {
+        this.PrioridadTotal = usuario.prioridad * 1000 + PrioridadDoc;
+    }
     
     //getters
     public void setIndiceHeap(int indice) { 
@@ -34,11 +41,11 @@ public class DocCola {
     }
     
     public int getClavePrioridad() { 
-        return clavePrioridad;
+        return PrioridadTotal;
     }
     
-    public void setClavePrioridad(int clavePrioridad) {
-        this.clavePrioridad = clavePrioridad; 
+    public void setPrioridadTotal(int PrioridadTotal) {
+        this.PrioridadTotal = PrioridadTotal; 
     }
     
     public String getNomDoc(){

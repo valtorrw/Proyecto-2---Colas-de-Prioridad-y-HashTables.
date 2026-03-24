@@ -13,9 +13,9 @@ public class TestHeapB {
     public static void main(String[] args) {
         HeapB heap = new HeapB(10);
         
-        DocCola doc1 = new DocCola("jperez", "doc1.pdf", 500, 1000);
-        DocCola doc2 = new DocCola("mario", "doc2.txt", 200, 1500);
-        DocCola doc3 = new DocCola("ana", "doc3.doc", 800, 500);
+        DocCola doc1 = new DocCola("jperez", "doc1.pdf", 500, 0, 1000);
+        DocCola doc2 = new DocCola("mario", "doc2.txt", 200, 1, 1500);
+        DocCola doc3 = new DocCola("ana", "doc3.doc", 800, 2, 500);
         
         System.out.println("=== 1. INSERTAR ===");
         heap.insertar(doc1);
