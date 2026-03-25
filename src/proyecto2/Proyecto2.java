@@ -5,7 +5,7 @@ import javax.swing.UIManager;
 public class Proyecto2 {
     public static void main(String[] args) {
         try {
-            // Configura la interfaz para que se vea como Windows/Mac
+            // interfaz para que se vea como Windows/Mac
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
             e.printStackTrace();

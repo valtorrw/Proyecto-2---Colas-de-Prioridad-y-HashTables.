@@ -6,20 +6,23 @@ import java.awt.event.*;
 import proyecto2.tabla_hash.TablaHash;
 import proyecto2.tabla_hash.UsuarioInfo;
 
+/*author Juan Ferreira
+
+*/
 public class VentanaPrincipal extends JFrame {
-    // Instancias de la lógica
+    
     private TablaHash tablaUsuarios;
     private HeapB colaImpresion;
     private int tiempoSimulacion = 0;
     private Timer timerReloj;
 
-    // Componentes UI
+    
     private JTextArea areaConsola;
     private JLabel labelReloj;
     private JPanel panelDibujoHeap;
 
     public VentanaPrincipal() {
-        // Inicialización de objetos
+        
         tablaUsuarios = new TablaHash();
         colaImpresion = new HeapB(100); 
 
@@ -41,7 +44,7 @@ public class VentanaPrincipal extends JFrame {
     }
 
     private void inicializarComponentes() {
-        // --- PANEL SUPERIOR ---
+        
         JPanel panelNorte = new JPanel(new FlowLayout(FlowLayout.LEFT));
         labelReloj = new JLabel("Tiempo: 0s");
         labelReloj.setFont(new Font("Arial", Font.BOLD, 14));
@@ -57,7 +60,7 @@ public class VentanaPrincipal extends JFrame {
         panelNorte.add(btnCargar);
         add(panelNorte, BorderLayout.NORTH);
 
-        // --- PANEL CENTRAL: DIBUJO ---
+        
         panelDibujoHeap = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
@@ -74,7 +77,7 @@ public class VentanaPrincipal extends JFrame {
         panelDibujoHeap.setBorder(BorderFactory.createTitledBorder("Vista de Árbol (Min-Heap)"));
         add(panelDibujoHeap, BorderLayout.CENTER);
 
-        // --- PANEL LATERAL ---
+        
         JPanel panelEste = new JPanel(new GridLayout(6, 1, 10, 10));
         panelEste.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         
@@ -106,7 +109,7 @@ public class VentanaPrincipal extends JFrame {
         panelEste.add(btnHash);
         add(panelEste, BorderLayout.EAST);
 
-        // --- PANEL INFERIOR: CONSOLA ---
+        
         areaConsola = new JTextArea(10, 20);
         areaConsola.setEditable(false);
         areaConsola.setBackground(new Color(25, 25, 25));
@@ -116,18 +119,18 @@ public class VentanaPrincipal extends JFrame {
 
     private void accionInsertar() {
         try {
-            // 1. Pedir Usuario
+            // pedir user
             String user = JOptionPane.showInputDialog(this, "Nombre del Usuario:");
             if (user == null || user.trim().isEmpty()) return;
             
-            // 2. Buscar en Hash (Validación Crítica)
+            // searh en el hash
             UsuarioInfo info = tablaUsuarios.buscarUsuario(user);
             if (info == null) {
                 areaConsola.append("[ERROR] El usuario '" + user + "' no existe en la base de datos CSV.\n");
                 return;
             }
 
-            // 3. Pedir datos del Doc
+            // pedir datos del doc
             String docNombre = JOptionPane.showInputDialog(this, "Nombre del Documento:");
             if (docNombre == null || docNombre.trim().isEmpty()) return;
 
@@ -138,7 +141,7 @@ public class VentanaPrincipal extends JFrame {
             int tipo = JOptionPane.showConfirmDialog(this, "¿Es urgente?", "Prioridad", JOptionPane.YES_NO_OPTION);
             int pDoc = (tipo == JOptionPane.YES_OPTION) ? 0 : 1;
 
-            // 4. Lógica de Negocio
+            // logica
             DocCola nuevoDoc = new DocCola(user, docNombre, tamaño, pDoc, tiempoSimulacion);
             nuevoDoc.calcularPrioridad(info); 
             
@@ -147,7 +150,7 @@ public class VentanaPrincipal extends JFrame {
             
             areaConsola.append("[COLA] Doc: " + docNombre + " | Prioridad: " + nuevoDoc.getClavePrioridad() + "\n");
             
-            // 5. Refresco visual
+            // refresh visual
             panelDibujoHeap.revalidate();
             panelDibujoHeap.repaint();
             

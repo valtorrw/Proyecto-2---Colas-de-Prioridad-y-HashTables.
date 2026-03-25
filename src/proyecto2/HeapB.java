@@ -3,8 +3,7 @@ package proyecto2;
 import proyecto2.tabla_hash.UsuarioInfo;
 
 /**
- * @author valer
- * Corregido para integración con VentanaPrincipal
+ * @author valeria,Juan Ferreira
  */
 public class HeapB {
     
@@ -71,9 +70,8 @@ public class HeapB {
             System.out.println("Error: Heap lleno");
             return -1;
         }
-        
-        // CORRECCIÓN: Eliminamos la referencia a 'Tabla' ya que la prioridad 
-        // se calcula en VentanaPrincipal antes de llamar a este método.
+         
+        //calcula en ventanaprincial antes de llamar a este metodo
         heap[sizeH] = doc;
         doc.setIndiceHeap(sizeH);
         int posicion = sizeH;
@@ -81,7 +79,7 @@ public class HeapB {
         
         heapifyUp(posicion);
         
-        // Retornamos la posición real donde quedó después de subir
+        // return de la posicion real donde quedo despues de subir
         for (int k = 0; k < sizeH; k++) {
             if (heap[k] == doc) return k;
         }
@@ -109,14 +107,13 @@ public class HeapB {
         if (indice < 0 || indice >= sizeH) {
             return;
         }
-        // CORRECCIÓN: Cambiamos el valor directamente y re-ordenamos
+        // valor directamente y reordena
         heap[indice].setClavePrioridad(nuevaPrioridad);
         heapifyUp(indice);   
         heapifyDown(indice); 
     } 
         
     public DocCola obtenerEnPosicion(int indice) {
-        // CORRECCIÓN: Usamos 'indice' (el parámetro) en lugar de 'i'
         if (indice >= 0 && indice < sizeH) {
             return heap[indice];
         }
