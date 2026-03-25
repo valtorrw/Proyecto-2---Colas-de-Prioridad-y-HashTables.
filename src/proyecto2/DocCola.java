@@ -10,7 +10,7 @@ import proyecto2.tabla_hash.UsuarioInfo;
  * @author valer
  */
 public class DocCola {
-     private String nomUsuario;
+    private String nomUsuario;
     private String nomDoc;
     private int sizeD;   
     private int PrioridadDoc; 
@@ -28,10 +28,22 @@ public class DocCola {
     }
     
     public void calcularPrioridad(UsuarioInfo usuario) {
-        this.PrioridadTotal = usuario.prioridad * 1000 + PrioridadDoc;
+        // Validación para evitar errores si el usuario no existe
+        if (usuario != null) {
+            this.PrioridadTotal = usuario.prioridad * 1000 + PrioridadDoc;
+        }
     }
     
-    //getters
+    // --- MÉTODOS DE CORRECCIÓN PARA EL HEAP ---
+
+    /**
+     * Este es el método que pedía HeapB.java para poder reordenar el árbol
+     * cuando se cambia la prioridad manualmente.
+     */
+    public void setClavePrioridad(int nuevaPrioridad) {
+        this.PrioridadTotal = nuevaPrioridad;
+    }
+
     public void setIndiceHeap(int indice) { 
         this.indiceHeap = indice; 
     }
@@ -48,6 +60,7 @@ public class DocCola {
         this.PrioridadTotal = PrioridadTotal; 
     }
     
+    // Getters adicionales
     public String getNomDoc(){
         return nomDoc;
     }

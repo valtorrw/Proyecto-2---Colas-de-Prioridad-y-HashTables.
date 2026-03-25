@@ -1,12 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package proyecto2;
+
 import proyecto2.tabla_hash.UsuarioInfo;
+
 /**
- *
  * @author valer
+ * Corregido para integración con VentanaPrincipal
  */
 public class HeapB {
     
@@ -25,7 +23,7 @@ public class HeapB {
         heap[i] = heap[j];
         heap[j] = temp;
         
-        // Actualiza indices
+        // Actualiza indices internos del documento
         heap[i].setIndiceHeap(i);
         heap[j].setIndiceHeap(j);
     }
@@ -74,59 +72,56 @@ public class HeapB {
             return -1;
         }
         
-         UsuarioInfo user = Tabla.buscarUsuario(doc.getNomUsuario()); //Hay que instanciar la tabla hash en el main y usar esa aqui
-        if (user != null) {
-            doc.calcularPrioridad(user);
-        } else {
-            System.out.println("Usuario no encontrado");
-        }
-        
+        // CORRECCIÓN: Eliminamos la referencia a 'Tabla' ya que la prioridad 
+        // se calcula en VentanaPrincipal antes de llamar a este método.
         heap[sizeH] = doc;
         doc.setIndiceHeap(sizeH);
         int posicion = sizeH;
         sizeH++;
         
         heapifyUp(posicion);
+        
+        // Retornamos la posición real donde quedó después de subir
+        for (int k = 0; k < sizeH; k++) {
+            if (heap[k] == doc) return k;
+        }
         return posicion;
     }
    
-        public DocCola eliminarMin() {
+    public DocCola eliminarMin() {
         if (sizeH == 0) {
             return null;
         }
         
         DocCola minimo = heap[0];
         heap[0] = heap[sizeH - 1];
-        heap[0].setIndiceHeap(0);
+        
         sizeH--;
         
         if (sizeH > 0) {
+            heap[0].setIndiceHeap(0);
             heapifyDown(0);
         }
         return minimo;
     }
     
-        public void modificarPrioridad(int indice, int nuevaPrioridad) {
+    public void modificarPrioridad(int indice, int nuevaPrioridad) {
         if (indice < 0 || indice >= sizeH) {
             return;
         }
-       DocCola doc = heap[indice];
-        UsuarioInfo user = Tabla.buscarUsuario(doc.getNomUsuario());//aqui tambien hay que usar la tabla que se ponga en el main
-
-        doc.calcularPrioridad(user);
-        heapifyUp(indice);   // Sube
-        heapifyDown(indice); // Baja
-        }
-        
+        // CORRECCIÓN: Cambiamos el valor directamente y re-ordenamos
+        heap[indice].setClavePrioridad(nuevaPrioridad);
+        heapifyUp(indice);   
+        heapifyDown(indice); 
+    } 
         
     public DocCola obtenerEnPosicion(int indice) {
-        if (indice < 0 || indice >= sizeH) {
-            return null;
+        // CORRECCIÓN: Usamos 'indice' (el parámetro) en lugar de 'i'
+        if (indice >= 0 && indice < sizeH) {
+            return heap[indice];
         }
-        return heap[indice];
+        return null;
     }
-    
-    //Unos getters
     
     public int getSizeH() { 
         return sizeH; 
@@ -135,9 +130,8 @@ public class HeapB {
     public boolean estaVacia() { 
         return sizeH == 0; 
     }
-    
-    
-    // para testeo
+
+    // --- Métodos de Testeo de Valeria ---
     
     public void mostrarSecuencia() {
         if (estaVacia()) {
@@ -147,9 +141,9 @@ public class HeapB {
         System.out.println("=== COLA SECUENCIA (" + sizeH + " docs) ===");
         for (int i = 0; i < sizeH; i++) {
             System.out.println((i+1) + ". " + heap[i].getNomDoc() + 
-                             " (P:" + heap[i].getClavePrioridad() + 
-                             " Idx:" + heap[i].getIndiceHeap() + 
-                             " " + heap[i].getNomUsuario() + ")");
+                               " (P:" + heap[i].getClavePrioridad() + 
+                               " Idx:" + heap[i].getIndiceHeap() + 
+                               " " + heap[i].getNomUsuario() + ")");
         }
     }
 
@@ -162,25 +156,6 @@ public class HeapB {
         mostrarNivel(0, 1);
     }
     
-    private void mostrarArbolRecursivo(int indice, int nivel) {
-        if (indice >= sizeH) return;
-        
-        // Espacios para indentación
-        for (int i = 0; i < nivel; i++) {
-            System.out.print("  ");
-        }
-        
-        // Mostrar nodo actual
-        System.out.print("--" + heap[indice] + "\n");
-        
-        // Hijos
-        int hijoIzq = 2 * indice + 1;
-        int hijoDer = 2 * indice + 2;
-        
-        mostrarArbolRecursivo(hijoIzq, nivel + 1);
-        mostrarArbolRecursivo(hijoDer, nivel + 1);
-    }
-
     private void mostrarNivel(int pos, int nivel) {
         if (pos >= sizeH) return;
         
@@ -190,23 +165,9 @@ public class HeapB {
         System.out.print("-- " + heap[pos].getNomDoc() + 
                         "(" + heap[pos].getClavePrioridad() + ") ");
         
-        int hermano = pos + 1;
-        while (hermano < sizeH && padreDe(hermano) == padreDe(pos)) {
-            System.out.print(heap[hermano].getNomDoc() + 
-                           "(" + heap[hermano].getClavePrioridad() + ") ");
-            hermano++;
-        }
         System.out.println();
         
         mostrarNivel(2 * pos + 1, nivel + 1);
         mostrarNivel(2 * pos + 2, nivel + 1);
-    }
-    
-    private int padreDe(int hijo) {
-        return (hijo - 1) / 2;
-    }
-
-    private boolean esHijo(int padre, int hijo) {
-        return (hijo - 1) / 2 == padre;
     }
 }

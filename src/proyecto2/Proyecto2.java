@@ -1,20 +1,19 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
 package proyecto2;
 
-/**
- *
- * @author valer
- */
-public class Proyecto2 {
+import javax.swing.UIManager;
 
-    /**
-     * @param args the command line arguments
-     */
+public class Proyecto2 {
     public static void main(String[] args) {
-        // TODO code application logic here
+        try {
+            // Configura la interfaz para que se vea como Windows/Mac
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // Inicia la ventana principal
+        java.awt.EventQueue.invokeLater(() -> {
+            new VentanaPrincipal().setVisible(true);
+        });
     }
-    
 }
